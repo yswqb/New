@@ -40,9 +40,6 @@
         <activity android:name=".Activity.MainActivity">
 
         </activity>
-        <activity android:name=".Activity.WeatherActivity">
-
-        </activity>
         <activity android:name=".Activity.BombActivity">
 
         </activity>
