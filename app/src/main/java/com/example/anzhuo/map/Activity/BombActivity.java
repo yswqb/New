@@ -25,45 +25,44 @@ public class BombActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bomb_layout);
-        Bmob.initialize(this,"7f0755d5c291508536e6400043667e1e");
-        Person p=new Person();
+        Bmob.initialize(this, "7f0755d5c291508536e6400043667e1e");
+        Person p = new Person();
         p.setName("刘涛");
         p.setAddress("黄石");
         p.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
-if (e==null){
-    Log.i("LT","添加数据成功，返回objectId为："+s);
-}
-                else {
-    Log.i("LT","创建数据失败：" + e.getMessage());
-}
+                if (e == null) {
+                    Log.i("LT", "添加数据成功，返回objectId为：" + s);
+                } else {
+                    Log.i("LT", "创建数据失败：" + e.getMessage());
+                }
             }
         });
 
-        BmobQuery person=new BmobQuery("Person");
+        BmobQuery person = new BmobQuery("Person");
         person.findObjectsByTable(new QueryListener<JSONArray>() {
             @Override
             public void done(JSONArray jsonArray, BmobException e) {
 
 
-                  if(e==null){
-                      for(int i=0;i<jsonArray.length();i++){
-                          try {
-                              JSONObject json= (JSONObject) jsonArray.get(i);
+                if (e == null) {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        try {
+                            JSONObject json = (JSONObject) jsonArray.get(i);
 
-                              String  name=json.getString("name");
-                              Log.i("LT",name);
-                          } catch (JSONException e1) {
-                              e1.printStackTrace();
-                          }
-                      }
-                      Log.i("LT",jsonArray.toString());
-
-                  }
+                            String name = json.getString("name");
+                            Log.i("LT", name);
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                    Log.i("LT", jsonArray.toString());
+                }
             }
         });
     }
+
     public class Person extends BmobObject {
         private String name;
         private String address;
@@ -71,17 +70,19 @@ if (e==null){
         public String getName() {
             return name;
         }
+
         public void setName(String name) {
             this.name = name;
         }
+
         public String getAddress() {
             return address;
         }
+
         public void setAddress(String address) {
             this.address = address;
         }
     }
-
 
 
 }
