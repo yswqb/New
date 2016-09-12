@@ -37,18 +37,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".activity.MainActivity">
 
         </activity>
-        <activity android:name=".Activity.BombActivity">
+        <activity android:name=".activity.LT.BombActivity">
+
+        </activity>
+        <activity android:name=".activity.LT.SideslipActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".Activity.SideslipActivity">
-
         </activity>
         <service android:name="com.amap.api.location.APSService"></service>
         <meta-data android:name="com.amap.api.v2.apikey" android:value="411177445d986c36939801c490141b74"/>

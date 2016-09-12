@@ -1,18 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_avatar_slip"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/sideslip_avatar" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/iv_avatar_slip"
+            android:layout_margin="12dp"
+            android:layout_toRightOf="@id/iv_avatar_slip"
+            android:text="伪装的冷漠"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
     <TextView
-        android:id="@+id/mapstr"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:drawableLeft="@drawable/sideslip_collect"
+        android:drawablePadding="10dp"
+        android:gravity="center"
+        android:text="收藏"
+        android:textSize="20dp" />
+
     <TextView
-        android:id="@+id/weatherstr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:drawableLeft="@mipmap/sideslip_hostory"
+        android:drawablePadding="10dp"
+        android:gravity="center"
+        android:text="历史"
+        android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:drawableLeft="@drawable/sideslip_collect"
+        android:drawablePadding="10dp"
+        android:gravity="center"
+        android:text="收藏"
+        android:textSize="20dp" />
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <Button
-        android:id="@+id/btstr"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:drawableLeft="@mipmap/sideslip_day"
+            android:gravity="center"
+            android:text="夜间模式"
+            android:textSize="20dp" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_off_slip"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sideslip_night_off"
+            />
+
+    </LinearLayout>
+
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="26dp">
+
+        <ImageView
+            android:id="@+id/iv_setting_slip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:src="@drawable/sideslip_setting" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_weather_slip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/sideslip_fine" />
+
+            <TextView
+                android:id="@+id/tv_address_slip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_weather_slip"
+                android:layout_marginRight="10dp"
+                android:text="武汉" />
+
+            <TextView
+                android:id="@+id/tv_temperature_slip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_weather_slip"
+                android:layout_toRightOf="@id/tv_address_slip"
+                android:text="25℃-33℃" />
+        </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.anzhuo.map.Utils;
+package com.example.anzhuo.map.utils;
 
 /**
  * Created by anzhuo on 2016/9/12.

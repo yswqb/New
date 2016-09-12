@@ -1,12 +1,10 @@
-package com.example.anzhuo.map.Activity;
+package com.example.anzhuo.map.activity.LT;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;

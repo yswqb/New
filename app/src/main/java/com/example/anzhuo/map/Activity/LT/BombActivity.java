@@ -1,4 +1,4 @@
-package com.example.anzhuo.map.Activity;
+package com.example.anzhuo.map.activity.LT;
 
 import android.app.Activity;
 import android.os.Bundle;
