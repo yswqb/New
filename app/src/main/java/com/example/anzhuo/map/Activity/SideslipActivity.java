@@ -32,9 +32,9 @@ import java.util.Date;
 /**
  * Created by anzhuo on 2016/9/9.
  */
-public class SideslipActivity extends Activity implements AMapLocationListener{
-    public AMapLocationClient mLocationClient=null;
-    public AMapLocationClientOption mLocationOption=null;
+public class SideslipActivity extends Activity implements AMapLocationListener {
+    public AMapLocationClient mLocationClient = null;
+    public AMapLocationClientOption mLocationOption = null;
     StringBuffer buffer;
     String url;
     private static final int MSG = 1;
@@ -50,10 +50,10 @@ public class SideslipActivity extends Activity implements AMapLocationListener{
                         JSONObject jsonObject1 = jso.getJSONObject("result");
                         JSONObject jsonObject2 = jsonObject1.getJSONObject("data");
                         JSONObject jsonObject3 = jsonObject2.getJSONObject("realtime");
-                        JSONObject jsonObject4=jsonObject3.getJSONObject("weather");
+                        JSONObject jsonObject4 = jsonObject3.getJSONObject("weather");
                         String aaa = jsonObject4.getString("info");
-                        Log.i("LT",aaa);
-
+                        Log.i("LT", aaa);
+                        Toast.makeText(SideslipActivity.this, aaa, Toast.LENGTH_SHORT).show();
 
 
                     } catch (JSONException e) {
@@ -64,13 +64,14 @@ public class SideslipActivity extends Activity implements AMapLocationListener{
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sideslip_layout);
-        mLocationClient=new AMapLocationClient(getApplicationContext());
+        mLocationClient = new AMapLocationClient(getApplicationContext());
         mLocationClient.setLocationListener(this);
-        mLocationOption=new AMapLocationClientOption();
+        mLocationOption = new AMapLocationClientOption();
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Battery_Saving);
         mLocationOption.setOnceLocation(true);
@@ -97,7 +98,6 @@ public class SideslipActivity extends Activity implements AMapLocationListener{
         }.start();
 
 
-
     }
 
     @Override
@@ -119,15 +119,15 @@ public class SideslipActivity extends Activity implements AMapLocationListener{
                 aMapLocation.getAdCode();//地区编码
                 aMapLocation.getAoiName();//获取当前定位点的AOI信息
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date date = new Date( aMapLocation.getTime());
+                Date date = new Date(aMapLocation.getTime());
                 df.format(date);
-                Toast.makeText(SideslipActivity.this,  df.format(date),Toast.LENGTH_SHORT).show();
-
-                Log.i("LT",   aMapLocation.getCity()+ aMapLocation.getDistrict()+ aMapLocation.getStreet()+aMapLocation.getStreetNum());
+                Toast.makeText(SideslipActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SideslipActivity.this, aMapLocation.getCity() + aMapLocation.getDistrict() + aMapLocation.getStreet() + aMapLocation.getStreetNum(), Toast.LENGTH_SHORT).show();
+                Log.i("LT", aMapLocation.getCity() + aMapLocation.getDistrict() + aMapLocation.getStreet() + aMapLocation.getStreetNum());
 //可在其中解析amapLocation获取相应内容。
-            }else {
+            } else {
                 //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-                Log.i("LT","location Error, ErrCode:"
+                Log.i("LT", "location Error, ErrCode:"
                         + aMapLocation.getErrorCode() + ", errInfo:"
                         + aMapLocation.getErrorInfo());
             }
@@ -135,6 +135,7 @@ public class SideslipActivity extends Activity implements AMapLocationListener{
 
 
     }
+
     private void requestNetWork(String url) {
         try {
             URL urlstr = new URL(url);

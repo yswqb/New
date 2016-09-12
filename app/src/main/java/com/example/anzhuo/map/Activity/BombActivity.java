@@ -6,9 +6,15 @@ import android.util.Log;
 
 import com.example.anzhuo.map.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
 
 /**
@@ -22,7 +28,7 @@ public class BombActivity extends Activity {
         Bmob.initialize(this,"7f0755d5c291508536e6400043667e1e");
         Person p=new Person();
         p.setName("刘涛");
-        p.setAddress("武汉");
+        p.setAddress("黄石");
         p.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
@@ -32,6 +38,29 @@ if (e==null){
                 else {
     Log.i("LT","创建数据失败：" + e.getMessage());
 }
+            }
+        });
+
+        BmobQuery person=new BmobQuery("Person");
+        person.findObjectsByTable(new QueryListener<JSONArray>() {
+            @Override
+            public void done(JSONArray jsonArray, BmobException e) {
+
+
+                  if(e==null){
+                      for(int i=0;i<jsonArray.length();i++){
+                          try {
+                              JSONObject json= (JSONObject) jsonArray.get(i);
+
+                              String  name=json.getString("name");
+                              Log.i("LT",name);
+                          } catch (JSONException e1) {
+                              e1.printStackTrace();
+                          }
+                      }
+                      Log.i("LT",jsonArray.toString());
+
+                  }
             }
         });
     }
@@ -52,4 +81,7 @@ if (e==null){
             this.address = address;
         }
     }
+
+
+
 }
