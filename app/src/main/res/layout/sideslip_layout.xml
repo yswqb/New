@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/textBackground"
+    android:id="@+id/side"
     android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,16 +21,17 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_margin="20dp"
-            android:src="@drawable/sideslip_avatar" />
+            android:src="@drawable/sideslip_avator_default" />
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_name_slip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/iv_avatar_slip"
             android:layout_margin="12dp"
+            android:textColor="?attr/textColor"
             android:layout_toRightOf="@id/iv_avatar_slip"
-            android:text="伪装的冷漠"
+            android:text="游客"
             android:textSize="20sp" />
     </RelativeLayout>
 
@@ -33,6 +42,7 @@
         android:drawableLeft="@drawable/sideslip_collect"
         android:drawablePadding="10dp"
         android:gravity="center"
+        android:textColor="?attr/textColor"
         android:text="收藏"
         android:textSize="20dp" />
 
@@ -40,6 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:textColor="?attr/textColor"
         android:drawableLeft="@mipmap/sideslip_hostory"
         android:drawablePadding="10dp"
         android:gravity="center"
@@ -50,6 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:textColor="?attr/textColor"
         android:drawableLeft="@drawable/sideslip_collect"
         android:drawablePadding="10dp"
         android:gravity="center"
@@ -58,6 +70,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_marginTop="20dp"
+        android:textColor="?attr/textColor"
         android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
@@ -65,6 +78,7 @@
             android:layout_marginLeft="10dp"
             android:drawableLeft="@mipmap/sideslip_day"
             android:gravity="center"
+            android:textColor="?attr/textColor"
             android:text="夜间模式"
             android:textSize="20dp" />
         <TextView
@@ -76,8 +90,9 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_gravity="center"
+            android:scaleType="centerInside"
             android:layout_height="wrap_content"
-            android:src="@drawable/sideslip_night_off"
+            android:src="?attr/imageValue"
             />
 
     </LinearLayout>
@@ -123,16 +138,28 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/iv_weather_slip"
                 android:layout_marginRight="10dp"
+                android:textColor="?attr/textColor"
                 android:text="武汉" />
 
+            <TextView
+                android:id="@+id/tv_weather_slip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/textColor"
+                android:layout_below="@id/iv_weather_slip"
+                android:layout_toRightOf="@id/tv_address_slip"
+                android:text="晴" />
             <TextView
                 android:id="@+id/tv_temperature_slip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/iv_weather_slip"
-                android:layout_toRightOf="@id/tv_address_slip"
-                android:text="25℃-33℃" />
+                android:textColor="?attr/textColor"
+                android:layout_below="@id/tv_address_slip"
+                android:gravity="center"
+                android:text="25℃-33℃"
+                />
+
         </RelativeLayout>
     </LinearLayout>
-
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

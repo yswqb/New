@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="#f53d3d"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_back_opinion"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="10dp"
+            android:src="@mipmap/sideslip_login_back"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#60605f"
+            android:textSize="20dp"
+            android:text="意见反馈"/>
+        <Button
+            android:id="@+id/bt_send_opinion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发送"/>
+    </LinearLayout>
+    <EditText
+        android:id="@+id/et_content_opinion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="start"
+        android:hint="   写下你的意见或建议，我们会在7个工作日那给你答复"/>
+
+</LinearLayout>

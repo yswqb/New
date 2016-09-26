@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#f7f6f6"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="#f53d3d"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_back_login"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="10dp"
+            android:src="@mipmap/sideslip_login_back"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textColor="#60605f"
+            android:textSize="26dp"
+            android:text="登录"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:background="#ffffff"
+        android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+       android:layout_margin="10dp"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/iv_user_login"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+           android:src="@mipmap/sideslip_login_user" />
+        <EditText
+            android:id="@+id/et_user_login"
+            android:layout_width="match_parent"
+            android:background="@null"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#dfdddd"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/iv_key_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:gravity="center_vertical"
+            android:src="@mipmap/sideslip_login_key" />
+        <EditText
+            android:id="@+id/et_pass_login"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+           android:layout_gravity="center"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_forget_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="忘记密码?"/>
+    </LinearLayout>
+    </LinearLayout>
+    <Button
+        android:id="@+id/bt_login_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="#ffffff"
+        android:textColor="#a7a5a5"
+        android:text="登录"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="还可以选择以下方式登录"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="16dp"
+        android:background="#ffffff"
+        android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/main_container"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:id="@+id/tv_qq_login"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:layout_height="wrap_content"
+                android:text="QQ账号登录"
+                android:gravity="center"
+                android:drawableTop="@drawable/sideslip_login_qq"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_weixin_login"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_margin="8dp"
+            android:layout_height="wrap_content"
+            android:text="微信账号登录"
+            android:drawableTop="@drawable/sideslip_login__weixin"/>
+
+    </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_margin="5dp"
+            android:background="#a7a5a5"/>
+    <TextView
+        android:id="@+id/tv_register_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="没有账号？快来注册一个吧！"/>
+    </LinearLayout>
+</LinearLayout>

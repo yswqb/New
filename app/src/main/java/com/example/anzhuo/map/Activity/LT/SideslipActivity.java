@@ -1,64 +1,84 @@
 package com.example.anzhuo.map.activity.LT;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
+import com.example.anzhuo.map.utils.MainApplication;
 import com.example.anzhuo.map.R;
+import com.example.anzhuo.map.net.Guide;
+import com.example.anzhuo.map.net.Weather;
+import com.example.anzhuo.map.utils.MyApplication;
+import com.example.anzhuo.map.utils.Util;
+import com.tencent.connect.UserInfo;
+import com.tencent.connect.auth.QQToken;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.UiError;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * Created by anzhuo on 2016/9/9.
  */
-public class SideslipActivity extends Activity implements AMapLocationListener {
-    public AMapLocationClient mLocationClient = null;
-    public AMapLocationClientOption mLocationOption = null;
-    StringBuffer buffer;
-    String url;
-    private static final int MSG = 1;
+public class SideslipActivity extends Activity implements View.OnClickListener {
+    boolean choose = true;
+    TextView tv_address_slip;
+    TextView tv_weather_slip;
+    TextView tv_name;
+    ImageView iv_head;
+    ImageView iv_off_slip;
+    ImageView iv_weather_slip;
+    ImageView iv_setting_slip;
+    UserInfo mInfo;
+    LinearLayout side;
+    private boolean isNight = false;
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case MSG:
-                    try {
-
-                        JSONObject jso = new JSONObject(buffer.toString());
-                        JSONObject jsonObject1 = jso.getJSONObject("result");
-                        JSONObject jsonObject2 = jsonObject1.getJSONObject("data");
-                        JSONObject jsonObject3 = jsonObject2.getJSONObject("realtime");
-                        JSONObject jsonObject4 = jsonObject3.getJSONObject("weather");
-                        String aaa = jsonObject4.getString("info");
-                        Log.i("LT", aaa);
-                        Toast.makeText(SideslipActivity.this, aaa, Toast.LENGTH_SHORT).show();
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
+                case 0:
+                    /*
+                    获取定位
+                     */
+                    tv_address_slip.setText(msg.obj.toString());
                     break;
+                case 1:
+                    /*
+                    获取天气
+                     */
+                    tv_weather_slip.setText("多云");
+                    break;
+                case 2:
+                    /*
+                    获取用户名
+                     */
+                    JSONObject response = (JSONObject) msg.obj;
+                    if (response.has("nickname")) {
+                        try {
+                            tv_name.setText(response.getString("nickname"));
+                        }catch (Exception e){
+                        e.printStackTrace();
+                        }
+                    }
+                    break;
+                case 3:
+               /*
+               获取头像
+                */
+                    Bitmap bitmap = (Bitmap) msg.obj;
+                    iv_head.setImageBitmap(bitmap);
+                    iv_head.setVisibility(android.view.View.VISIBLE);
             }
         }
     };
@@ -66,92 +86,124 @@ public class SideslipActivity extends Activity implements AMapLocationListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (MyApplication.appConfig.isNighTheme()) {
+            this.setTheme(R.style.NightTheme);
+            isNight = true;
+        } else {
+            this.setTheme(R.style.DayTheme);
+            isNight = false;
+        }
+
         setContentView(R.layout.sideslip_layout);
-        mLocationClient = new AMapLocationClient(getApplicationContext());
-        mLocationClient.setLocationListener(this);
-        mLocationOption = new AMapLocationClientOption();
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Battery_Saving);
-        mLocationOption.setOnceLocation(true);
-        mLocationOption.setOnceLocationLatest(true);
-        mLocationOption.setInterval(1000);
-        mLocationOption.setNeedAddress(true);
-        mLocationOption.setWifiActiveScan(false);
-        mLocationOption.setMockEnable(false);
-        AMapLocationClientOption.setLocationProtocol(AMapLocationClientOption.AMapLocationProtocol.HTTP);
-        mLocationClient.setLocationOption(mLocationOption);
-        mLocationClient.startLocation();
-        new Thread() {
-            @Override
-            public void run() {
-
-                super.run();
-                try {
-                    url = "http://op.juhe.cn/onebox/weather/query?cityname=" + URLEncoder.encode("武汉", "utf-8") + "&dtype=json&key=a36808314ca92f163ec77ef96438e006";
-                    requestNetWork(url);
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
+        tv_address_slip = (TextView) findViewById(R.id.tv_address_slip);
+        tv_weather_slip = (TextView) findViewById(R.id.tv_weather_slip);
+        iv_off_slip = (ImageView) findViewById(R.id.iv_off_slip);
+        tv_name = (TextView) findViewById(R.id.tv_name_slip);
+        iv_head = (ImageView) findViewById(R.id.iv_avatar_slip);
+        side= (LinearLayout) findViewById(R.id.side);
+        iv_weather_slip= (ImageView) findViewById(R.id.iv_weather_slip );
+        iv_setting_slip= (ImageView) findViewById(R.id.iv_setting_slip);
+        Guide guide = new Guide(SideslipActivity.this);
+        guide.guide(handler);
+        Weather weather = new Weather(SideslipActivity.this);
+        weather.requestNetWork(handler, 1,tv_address_slip.getText().toString());
+        iv_off_slip.setOnClickListener(this);
+        iv_setting_slip.setOnClickListener(this);
+        /*
+        QQ第三方登录
+         */
+         IUiListener listener = new IUiListener() {
+                @Override
+                public void onError(UiError e) {
+                    // TODO Auto-generated method stub
                 }
-            }
-        }.start();
+                @Override
+                public void onComplete(final Object response) {
+                    Message msg = new Message();
+                    msg.obj = response;
+                    msg.what = 2;
+                    handler.sendMessage(msg);
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            JSONObject json = (JSONObject) response;
+                            if (json.has("figureurl")) {
+                                Bitmap bitmap = null;
+                                try {
+                                    bitmap = Util.getbitmap(json
+                                            .getString("figureurl_qq_2"));
+                                } catch (JSONException e) {
+
+                                }
+                                Message msg = new Message();
+                                msg.obj = bitmap;
+                                msg.what = 3;
+                                handler.sendMessage(msg);
+                            }
+                        }
+
+                    }.start();
+                }
+
+                @Override
+                public void onCancel() {
+                }
+            };
+        if (MainApplication.qqToken!=null){
+            mInfo = new UserInfo(this, MainApplication.qqToken);
+            mInfo.getUserInfo(listener);
+        }
+           /*
+                对传过来的值进行判断
+                 */
+            Intent intent=getIntent();
+            String name = intent.getStringExtra("name");
+            if (name!=null){
+            tv_name.setText(name);
+        }
+
+
 
 
     }
-
     @Override
-    public void onLocationChanged(AMapLocation aMapLocation) {
-        if (aMapLocation != null) {
-            if (aMapLocation.getErrorCode() == 0) {
-                aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-                aMapLocation.getLatitude();//获取纬度
-                aMapLocation.getLongitude();//获取经度
-                aMapLocation.getAccuracy();//获取精度信息
-                aMapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
-                aMapLocation.getCountry();//国家信息
-                aMapLocation.getProvince();//省信息
-                aMapLocation.getCity();//城市信息
-                aMapLocation.getDistrict();//城区信息
-                aMapLocation.getStreet();//街道信息
-                aMapLocation.getStreetNum();//街道门牌号信息
-                aMapLocation.getCityCode();//城市编码
-                aMapLocation.getAdCode();//地区编码
-                aMapLocation.getAoiName();//获取当前定位点的AOI信息
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date date = new Date(aMapLocation.getTime());
-                df.format(date);
-                Toast.makeText(SideslipActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
-                Toast.makeText(SideslipActivity.this, aMapLocation.getCity() + aMapLocation.getDistrict() + aMapLocation.getStreet() + aMapLocation.getStreetNum(), Toast.LENGTH_SHORT).show();
-                Log.i("LT", aMapLocation.getCity() + aMapLocation.getDistrict() + aMapLocation.getStreet() + aMapLocation.getStreetNum());
-//可在其中解析amapLocation获取相应内容。
-            } else {
-                //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-                Log.i("LT", "location Error, ErrCode:"
-                        + aMapLocation.getErrorCode() + ", errInfo:"
-                        + aMapLocation.getErrorInfo());
-            }
-        }
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_off_slip:
+                if (choose){
+                    changTheme();
+                    getApplication().setTheme(R.style.NightTheme);
+                    choose=false;
+                }
+                else {
+                    changTheme();
+                    getApplication().setTheme(R.style.DayTheme);
+                    choose=true;
 
+                }
+                break;
+            case R.id.iv_setting_slip:
+                Intent intent=new Intent(this,SettingActivity.class);
+
+                startActivity(intent);
+        }
 
     }
-
-    private void requestNetWork(String url) {
-        try {
-            URL urlstr = new URL(url);
-            HttpURLConnection connection = (HttpURLConnection) urlstr.openConnection();
-            InputStream in = new BufferedInputStream(connection.getInputStream());
-            buffer = new StringBuffer();
-            byte[] b = new byte[10 * 1024];
-            int len;
-            Log.i("LT", buffer.toString());
-            while ((len = in.read(b)) != -1) {
-                buffer.append(new String(b, 0, len));
-            }
-            in.close();
-            handler.sendEmptyMessage(MSG);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+    /*
+    夜间模式设置
+     */
+    public  void changTheme(){
+        Toast.makeText(this,"123",Toast.LENGTH_SHORT).show();
+        if (isNight){
+            MyApplication.appConfig.setNightTheme(false);
         }
+        else {
+            MyApplication.appConfig.setNightTheme(true);
+        }
+       Intent intent=getIntent();
+        overridePendingTransition(0,R.anim.out_anim);
+        finish();
+        overridePendingTransition(R.anim.in_anim,0);
+        startActivity(intent);
     }
 }

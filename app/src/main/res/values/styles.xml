@@ -7,5 +7,20 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    - <style name="DayTheme" parent="AppTheme">
+    <item name="titleBarColor">@color/day_titlebar</item>
+    <item name="textColor">@color/day_text</item>
+    <item name="textBackground">@android:color/white</item>
+    <item name="settingBackground">@color/setting_text</item>
+    <item name="imageValue">@drawable/sideslip_night_off</item>
+</style>
+    - <style name="NightTheme" parent="AppTheme">
+    <item name="titleBarColor">@color/night_titlebar</item>
+    <item name="textColor">@android:color/white</item>
+    <item name="textBackground">@android:color/black</item>
+    <item name="settingBackground">@android:color/black</item>
+    <item name="imageValue">@drawable/sideslip_night_on</item>
+</style>
+
 
 </resources>

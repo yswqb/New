@@ -24,11 +24,12 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile files('libs/AMap_Location_V2.9.0_20160906.jar')
-
     //以下SDK开发者请根据需要自行选择
     //bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务，以下是最新的bmob-sdk:
     //3.5.0：请务必查看下面注释[1]
     //添加数据需要的
     compile 'cn.bmob.android:bmob-sdk:3.5.0'
+    compile files('libs/mta-sdk-1.6.2.jar')
+    compile files('libs/nineoldandroids-2.4.0.jar')
 }
 

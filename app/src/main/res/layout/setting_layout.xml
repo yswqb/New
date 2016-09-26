@@ -2,21 +2,77 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#b9afaf"
+    android:background="?attr/textBackground"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:gravity="center"
+        android:background="?attr/textBackground"
+        android:layout_height="50dp">
         <ImageView
+            android:id="@+id/iv_back_setting"
             android:layout_width="wrap_content"
+            android:layout_margin="6dp"
             android:layout_height="wrap_content"
             android:src="@mipmap/sideslip_setting_back"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="6dp"
+            android:textColor="?attr/textColor"
             android:layout_height="wrap_content"
-            android:textSize="28dp"
+            android:textSize="26dp"
+          android:gravity="center"
             android:text="设置"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_margin="6dp"
+            android:layout_height="wrap_content" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/tv_clear_setting"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="?attr/textBackground"
+        android:textColor="?attr/textColor"
+        android:paddingLeft="16dp"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:text="清处缓存"/>
+    <TextView
+        android:id="@+id/tv_opinion_setting"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
 
+        android:textSize="20dp"
+        android:layout_marginTop="1dp"
+        android:background="?attr/textBackground"
+        android:textColor="?attr/textColor"
+        android:paddingLeft="16dp"
+        android:gravity="center_vertical"
+        android:text="意见反馈"/>
+    <TextView
+        android:id="@+id/tv_new_setting"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:layout_marginTop="0.5dp"
+        android:background="?attr/textBackground"
+        android:textColor="?attr/textColor"
+        android:paddingLeft="16dp"
+        android:gravity="center_vertical"
+        android:text="检查新版本"/>
+    <TextView
+        android:id="@+id/tv_change_setting"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:layout_marginTop="0.5dp"
+        android:background="?attr/textBackground"
+        android:textColor="?attr/textColor"
+        android:paddingLeft="16dp"
+        android:gravity="center_vertical"
+        android:text="切换账号"/>
 
 </LinearLayout>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#f2f1f1"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="#f53d3d"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_back_register"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="10dp"
+            android:src="@mipmap/sideslip_login_back"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textColor="#60605f"
+            android:textSize="20dp"
+            android:text="账号注册"/>
+    </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    android:layout_margin="16dp"
+    android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/et_name_register"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@null"
+        android:layout_margin="10dp"
+        android:hint="请输入用户名（由汉字.字母.数字组成）"/>
+
+
+    <EditText
+        android:id="@+id/et_password_register"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@null"
+        android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        android:hint="请输入密码(由字母和数字组成)"/>
+    <EditText
+        android:id="@+id/et_passagain_register"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@null"
+        android:hint="请再次输入密码"/>
+    <EditText
+        android:id="@+id/et_mobile_register"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@null"
+        android:layout_margin="10dp"
+        android:digits="0123456789"
+        android:phoneNumber="true"
+        android:hint="请输入手机号"/>
+</LinearLayout>
+    <Button
+        android:id="@+id/bt_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+       android:textColor="#4d4747"
+        android:background="#c4f53d"
+        android:text="注册"/>
+
+</LinearLayout>
