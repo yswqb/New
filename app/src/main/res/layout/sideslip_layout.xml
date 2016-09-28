@@ -130,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/sideslip_fine" />
+                android:src="@drawable/sideslip_cloud" />
 
             <TextView
                 android:id="@+id/tv_address_slip"

@@ -11,7 +11,10 @@
     <item name="titleBarColor">@color/day_titlebar</item>
     <item name="textColor">@color/day_text</item>
     <item name="textBackground">@android:color/white</item>
+    <item name="buttonBackground">@color/button</item>
     <item name="settingBackground">@color/setting_text</item>
+    <item name="loginBackground">@color/login_background</item>
+    <item name="Background">@color/login_background</item>
     <item name="imageValue">@drawable/sideslip_night_off</item>
 </style>
     - <style name="NightTheme" parent="AppTheme">
@@ -19,6 +22,9 @@
     <item name="textColor">@android:color/white</item>
     <item name="textBackground">@android:color/black</item>
     <item name="settingBackground">@android:color/black</item>
+    <item name="loginBackground">@android:color/black</item>
+    <item name="buttonBackground">@color/day_text</item>
+    <item name="Background">@color/night_titlebar</item>
     <item name="imageValue">@drawable/sideslip_night_on</item>
 </style>
 

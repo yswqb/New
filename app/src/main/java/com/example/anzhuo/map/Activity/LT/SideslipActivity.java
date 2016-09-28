@@ -40,7 +40,7 @@ public class SideslipActivity extends Activity implements View.OnClickListener {
     ImageView iv_weather_slip;
     ImageView iv_setting_slip;
     UserInfo mInfo;
-    LinearLayout side;
+    TextView tv_temperature_slip;
     private boolean isNight = false;
     Handler handler = new Handler() {
         @Override
@@ -57,7 +57,7 @@ public class SideslipActivity extends Activity implements View.OnClickListener {
                     /*
                     获取天气
                      */
-                    tv_weather_slip.setText("多云");
+                    tv_weather_slip.setText(msg.obj.toString());
                     break;
                 case 2:
                     /*
@@ -79,7 +79,14 @@ public class SideslipActivity extends Activity implements View.OnClickListener {
                     Bitmap bitmap = (Bitmap) msg.obj;
                     iv_head.setImageBitmap(bitmap);
                     iv_head.setVisibility(android.view.View.VISIBLE);
+                    break;
+                case 4:
+                    /*
+                    获取温度
+                     */
+                    tv_temperature_slip.setText(msg.obj.toString());
             }
+
         }
     };
 
@@ -100,15 +107,17 @@ public class SideslipActivity extends Activity implements View.OnClickListener {
         iv_off_slip = (ImageView) findViewById(R.id.iv_off_slip);
         tv_name = (TextView) findViewById(R.id.tv_name_slip);
         iv_head = (ImageView) findViewById(R.id.iv_avatar_slip);
-        side= (LinearLayout) findViewById(R.id.side);
         iv_weather_slip= (ImageView) findViewById(R.id.iv_weather_slip );
         iv_setting_slip= (ImageView) findViewById(R.id.iv_setting_slip);
+        tv_temperature_slip= (TextView) findViewById(R.id.tv_temperature_slip);
         Guide guide = new Guide(SideslipActivity.this);
         guide.guide(handler);
         Weather weather = new Weather(SideslipActivity.this);
         weather.requestNetWork(handler, 1,tv_address_slip.getText().toString());
+        weather.temperature(handler,4,tv_address_slip.getText().toString());
         iv_off_slip.setOnClickListener(this);
         iv_setting_slip.setOnClickListener(this);
+        iv_head.setOnClickListener(this);
         /*
         QQ第三方登录
          */
@@ -162,6 +171,15 @@ public class SideslipActivity extends Activity implements View.OnClickListener {
             tv_name.setText(name);
         }
 
+        Intent intent1=getIntent();
+        String mobile=intent1.getStringExtra("mobile");
+        //隐藏手机号中间4位
+
+        if (mobile!=null){
+            String result = mobile.substring(0,3)+"****"+mobile.substring(7,mobile.length());
+            tv_name.setText("手机用户"+result);
+        }
+
 
 
 
@@ -184,8 +202,8 @@ public class SideslipActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.iv_setting_slip:
                 Intent intent=new Intent(this,SettingActivity.class);
-
                 startActivity(intent);
+                break;
         }
 
     }
@@ -193,7 +211,6 @@ public class SideslipActivity extends Activity implements View.OnClickListener {
     夜间模式设置
      */
     public  void changTheme(){
-        Toast.makeText(this,"123",Toast.LENGTH_SHORT).show();
         if (isNight){
             MyApplication.appConfig.setNightTheme(false);
         }

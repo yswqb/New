@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+/*
+ 侧滑
+ */
 
 /**
  * Created by anzhuo on 2016/9/23.

@@ -28,11 +28,10 @@ public class Bomb {
 
     }
 
-    public void register(String name, String mobile, String password) {
+    public void register(String name, String password) {
         Bmob.initialize(mcontext, "7f0755d5c291508536e6400043667e1e");
         News news = new News();
         news.setName(name);
-        news.setMobile(mobile);
         news.setPassword(password);
         news.save(new SaveListener<String>() {
             @Override
@@ -58,7 +57,7 @@ public class Bomb {
                             JSONObject json = (JSONObject) jsonArray.get(i);
                             name = json.getString("name");
                              pass=json.getString("password");
-                            mobile=json.getString("mobile");
+                            //mobile=json.getString("mobile");
                         } catch (JSONException e1) {
                             e1.printStackTrace();
                         }

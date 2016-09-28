@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="#f7f6f6"
+    android:background="?attr/loginBackground"
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_margin="10dp"
-        android:background="#ffffff"
+        android:background="?attr/textBackground"
         android:layout_height="wrap_content">
 
 
@@ -44,6 +44,8 @@
             android:id="@+id/et_user_login"
             android:layout_width="match_parent"
             android:background="@null"
+            android:textColorHint="?attr/textColor"
+            android:hint="请输入账号"
             android:layout_gravity="center_vertical"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -66,6 +68,8 @@
             android:id="@+id/et_pass_login"
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:hint="请输入密码"
+            android:textColorHint="?attr/textColor"
             android:background="@null"
            android:layout_gravity="center"
             android:layout_height="wrap_content" />
@@ -74,27 +78,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="?attr/textColor"
             android:text="忘记密码?"/>
     </LinearLayout>
     </LinearLayout>
+
+
     <Button
         android:id="@+id/bt_login_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:background="#ffffff"
+        android:background="?attr/buttonBackground"
         android:textColor="#a7a5a5"
         android:text="登录"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="?attr/textColor"
         android:layout_margin="16dp"
         android:text="还可以选择以下方式登录"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_margin="16dp"
-        android:background="#ffffff"
+        android:background="?attr/textBackground"
         android:layout_height="wrap_content">
 
 
@@ -112,21 +120,25 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_margin="8dp"
+                android:drawablePadding="16dp"
                 android:layout_height="wrap_content"
                 android:text="QQ账号登录"
+                android:textColor="?attr/textColor"
                 android:gravity="center"
                 android:drawableTop="@drawable/sideslip_login_qq"/>
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_weixin_login"
+            android:id="@+id/tv_mobile_login"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:textColor="?attr/textColor"
             android:layout_margin="8dp"
+            android:drawablePadding="5dp"
             android:layout_height="wrap_content"
-            android:text="微信账号登录"
-            android:drawableTop="@drawable/sideslip_login__weixin"/>
+            android:text="手机号登录"
+            android:drawableTop="@drawable/login_mobile"/>
 
     </LinearLayout>
         <TextView
@@ -139,6 +151,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:textColor="?attr/textColor"
         android:text="没有账号？快来注册一个吧！"/>
     </LinearLayout>
 </LinearLayout>

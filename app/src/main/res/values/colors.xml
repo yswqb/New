@@ -5,6 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="day_titlebar">#197d96</color>
     <color name="day_text">#819a9a</color>
+    <color name="login_background">#f7f6f6</color>
     <color name="setting_text">#e4e2e2</color>
-    <color name="night_titlebar">#2A2A2A</color>
+    <color name="night_titlebar">#494949</color>
+    <color name="button">#f53d3d</color>
 </resources>

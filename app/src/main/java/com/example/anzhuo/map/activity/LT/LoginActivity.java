@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.anzhuo.map.net.Bomb;
 import com.example.anzhuo.map.utils.MainApplication;
 import com.example.anzhuo.map.R;
+import com.example.anzhuo.map.utils.MyApplication;
 import com.example.anzhuo.map.utils.Util;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.auth.QQAuth;
@@ -30,10 +31,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Random;
+
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
+import cn.smssdk.gui.RegisterPage;
+
 
 /**
  * Created by anzhuo on 2016/9/14.
@@ -47,7 +55,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     TextView tv_forget_login;
     Button bt_login_login;
     TextView tv_qq_login;
-    TextView tv_weixin_login;
+    TextView tv_mobile_login;
     TextView tv_register_login;
     private static final String TAG = LoginActivity.class.getName();
     public static String mAppid;
@@ -57,13 +65,20 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     String name;
     String pass;
     String mobile;
+    String APPKET="177ba3375baf0";
+    String APPSECRCT="34bddc4536757ac0605ff36d94dcb962";
+
     private int START;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "-->onCreate");
-
+        if (MyApplication.appConfig.isNighTheme()) {
+            this.setTheme(R.style.NightTheme);
+        } else {
+            this.setTheme(R.style.DayTheme);
+        }
 
         // 固定竖屏
         setContentView(R.layout.login_layout);
@@ -75,7 +90,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         tv_forget_login = (TextView) findViewById(R.id.tv_forget_login);
         bt_login_login = (Button) findViewById(R.id.bt_login_login);
         tv_qq_login = (TextView) findViewById(R.id.tv_qq_login);
-        tv_weixin_login = (TextView) findViewById(R.id.tv_weixin_login);
+        tv_mobile_login = (TextView) findViewById(R.id.tv_mobile_login);
         tv_register_login = (TextView) findViewById(R.id.tv_register_login);
         iv_back_login.setOnClickListener(this);
         iv_user_login.setOnClickListener(this);
@@ -85,8 +100,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         tv_forget_login.setOnClickListener(this);
         bt_login_login.setOnClickListener(this);
         tv_qq_login.setOnClickListener(new NewClickListener());
-        tv_weixin_login.setOnClickListener(this);
+        tv_mobile_login.setOnClickListener(this);
         tv_register_login.setOnClickListener(this);
+        SMSSDK.initSDK(LoginActivity.this,"177ba3375baf0","34bddc4536757ac0605ff36d94dcb962");
         initViews();
         /*
         改变字体颜色
@@ -116,18 +132,20 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                                     JSONObject json = (JSONObject) jsonArray.get(i);
                                     name = json.getString("name");
                                     pass = json.getString("password");
-                                    mobile = json.getString("mobile");
                                     Log.i("LT",name);
                                 } catch (JSONException e1) {
                                     e1.printStackTrace();
                                 }
 
-                                if (et_user_login.getText().toString().equals(name)||et_user_login.getText().toString().equals(mobile)&&et_pass_login.getText().toString().equals(pass)){
+                                if (et_user_login.getText().toString().equals(name)&&et_pass_login.getText().toString().equals(pass)){
 
                                     Intent intent=new Intent(LoginActivity.this,SideslipActivity.class);
                                    intent.putExtra("name",name);
+                                    MainApplication.qqToken=null;
                                     startActivity(intent);
+
                                     Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
+                                    finish();
                                     START=2;
                                 }
                             }
@@ -141,6 +159,23 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             case R.id.tv_register_login:
                 Intent intent=new Intent(LoginActivity.this,RegiseterActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.tv_mobile_login:
+                RegisterPage registerPage=new RegisterPage();
+                registerPage.setRegisterCallback(new EventHandler(){
+                    @Override
+                    public void afterEvent(int i, int i1, Object o) {
+                        super.afterEvent(i, i1, o);
+                        if (i1==SMSSDK.RESULT_COMPLETE){
+                            HashMap<String,Object> phoneMap = (HashMap<String, Object>) o;
+                            String country = (String) phoneMap.get("country");
+                            String phone = (String) phoneMap.get("phone");
+                            Log.i("LT",phone+"123");
+                            registerUser(country, phone);
+                        }
+                    }
+                });
+                registerPage.show(LoginActivity.this);
                 break;
         }
     }
@@ -231,7 +266,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             Class<?> cls = null;
             switch (v.getId()) {
                 case R.id.tv_qq_login:
-                    Toast.makeText(LoginActivity.this, "123456", Toast.LENGTH_SHORT).show();
                     onClickLogin();
                     return;
             }
@@ -241,5 +275,18 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             }
         }
 
+    }
+    private void registerUser(String country, String phone) {
+        Random rnd = new Random();
+        int id = Math.abs(rnd.nextInt());
+        String uid = String.valueOf(id);
+        String nickName = "zhilinghiH" + uid;
+        SMSSDK.submitUserInfo(uid, nickName,null, country, phone);
+        Log.i("LT",phone);
+        Intent intent1=new Intent(LoginActivity.this,SideslipActivity.class);
+        intent1.putExtra("mobile",phone);
+
+        MainApplication.qqToken=null;
+        startActivity(intent1);
     }
 }
